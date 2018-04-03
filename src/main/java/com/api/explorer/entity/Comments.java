@@ -16,6 +16,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity(name = "Comments")
 @Table(name = "comments")
 public class Comments implements Serializable {
@@ -37,7 +40,7 @@ public class Comments implements Serializable {
 	private String username;
 	private Date dateOfComment;
 	
-
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;

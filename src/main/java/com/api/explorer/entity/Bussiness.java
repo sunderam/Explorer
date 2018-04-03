@@ -1,13 +1,22 @@
 package com.api.explorer.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Entity(name = "Bussiness")
+@Table(name = "bussiness")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Bussiness implements Serializable {
 
 	/**
@@ -17,38 +26,54 @@ public class Bussiness implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
+	private Long biz_id;
+
 	private String name;
-	
+
 	private String companyName;
-	
+
 	private String companyAddress;
-	
+
 	private String website;
-	 
+
 	private String type;
 
-	Bussiness(){
-		
+	@JsonManagedReference
+	@OneToMany(mappedBy = "bussiness", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Review> review;
+
+	Bussiness() {
+
 	}
 
-	public Bussiness(Long id, String name, String companyName, String companyAddress, String website, String type) {
+	public Bussiness(Long biz_id, String name, String companyName, String companyAddress, String website, String type,
+			List<Review> review) {
 		super();
-		this.id = id;
+		this.biz_id = biz_id;
 		this.name = name;
 		this.companyName = companyName;
 		this.companyAddress = companyAddress;
 		this.website = website;
 		this.type = type;
+		this.review = review;
 	}
 
-	public Long getId() {
-		return id;
+	
+
+	public List<Review> getReview() {
+		return review;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setReview(List<Review> review) {
+		this.review = review;
+	}
+
+	public Long getBiz_id() {
+		return biz_id;
+	}
+
+	public void setBiz_id(Long biz_id) {
+		this.biz_id = biz_id;
 	}
 
 	public String getName() {
@@ -90,8 +115,5 @@ public class Bussiness implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
+
 }
-	
-	

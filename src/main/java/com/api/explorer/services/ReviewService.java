@@ -26,4 +26,8 @@ public class ReviewService {
 		// TODO Auto-generated method stub
 		return reviewRepository.findAll();
 	}
+	
+	public void deleteReview(long id) {
+		reviewRepository.deleteById(id);
+	}
 }
