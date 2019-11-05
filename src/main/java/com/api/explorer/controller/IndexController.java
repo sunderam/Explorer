@@ -12,4 +12,9 @@ public class IndexController {
 	public String index() {
 		return "Spring Index resourece";
 	}
+	
+	@GetMapping
+	public String indexes(){
+		return "Git test";
+	}
 }
